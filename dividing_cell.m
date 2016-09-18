@@ -1,13 +1,16 @@
+% Simulation of cells with an average life span and time before split
+% Goal is to evaluate behavior of system
+
 clear all
 
 u = 1;
 lambda_a = 1.1;                   % Change this to try different Labda values
-nruns = 100;
+nruns = 100;                      % Number of simulations
 A = zeros(nruns,1);
 dt = 0.001;
 
 for j = 1:nruns
-    count = [0, round(exprnd(1/u),3), round(exprnd(1/lambda_a),3)]; %Initialize first cell
+    count = [0, round(exprnd(1/u),3), round(exprnd(1/lambda_a), 3)]; % Initialize first cell
     t = 0;
     add = zeros(1,3);
     for t = 0:dt:4
@@ -18,7 +21,7 @@ for j = 1:nruns
                     t_split = round((t+exprnd(1/u,1,2)),3);
                     t_death = round((t+exprnd(1/u,1,2)),3);
                     count(i,:) = [t, t_death(1,1), t_split(1,1)]; % Repopulating old cell with new one                    
-                    add = [t, t_death(1,2), t_split(1,2)]; %New cell to add 
+                    add = [t, t_death(1,2), t_split(1,2)]; % New cell to add 
                     count = [count; add]; % New Count
                 else
                     count(i,:) = [0,0,0]; % Setting cell to zero because it has died
